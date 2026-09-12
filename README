@@ -1,0 +1,36 @@
+lwsdlgl
+
+Thin C/C++ SDL3 + SDL_GPU + SDL_shadercross wrapper with lwcgl-style Object.function() calls.
+SDL handles, structs, enums and flags stay native; no renderer or engine layer is added.
+
+Install dependencies, build and install:
+
+    make deps
+    make
+    sudo make install
+
+If SDL3 or SDL_shadercross is missing, make prints the exact system/source install path. PREFIX defaults to /usr/local.
+
+Use:
+
+    #include <lwsdlgl/lwsdlgl.h>
+
+    System.init(SDL_INIT_VIDEO | SDL_INIT_GAMEPAD);
+    SDL_Window *window = Window.create("Game", 1280, 720, SDL_WINDOW_RESIZABLE);
+    SDL_GPUDevice *device = GPU.createDevice(ShaderCross.getHLSLShaderFormats(), false, NULL);
+    GPU.claimWindow(device, window);
+
+    while (true) {
+        SDL_Event event;
+        while (Events.poll(&event)) {
+            if (event.type == SDL_EVENT_QUIT) goto done;
+        }
+    }
+
+done:
+    GPU.releaseWindow(device, window);
+    GPU.destroyDevice(device);
+    Window.destroy(window);
+    System.quit();
+
+C and C++ use the same header and ABI. Native SDL3 APIs remain available through the included SDL headers.
