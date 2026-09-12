@@ -1,0 +1,1 @@
+Keep SDL3, SDL_GPU and SDL_shadercross additions mirrored without breaking the existing ABI.
