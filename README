@@ -16,6 +16,8 @@ Use:
     #include <lwsdlgl/lwsdlgl.h>
 
     System.init(SDL_INIT_VIDEO | SDL_INIT_GAMEPAD);
+    ShaderCross.init();
+
     SDL_Window *window = Window.create("Game", 1280, 720, SDL_WINDOW_RESIZABLE);
     SDL_GPUDevice *device = GPU.createDevice(ShaderCross.getHLSLShaderFormats(), false, NULL);
     GPU.claimWindow(device, window);
@@ -31,6 +33,7 @@ done:
     GPU.releaseWindow(device, window);
     GPU.destroyDevice(device);
     Window.destroy(window);
+    ShaderCross.quit();
     System.quit();
 
 C and C++ use the same header and ABI. Native SDL3 APIs remain available through the included SDL headers.
