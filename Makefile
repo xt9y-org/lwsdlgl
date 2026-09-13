@@ -81,7 +81,7 @@ check-deps:
 		echo "run: make deps"; \
 		echo "manual source install:"; \
 		echo "  git clone --depth 1 --recurse-submodules https://github.com/libsdl-org/SDL_shadercross.git"; \
-		echo "  cmake -S SDL_shadercross -B SDL_shadercross/build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$(PREFIX) -DSDLSHADERCROSS_VENDORED=ON -DSDLSHADERCROSS_CLI=OFF -DSDLSHADERCROSS_INSTALL=ON"; \
+		echo "  cmake -S SDL_shadercross -B SDL_shadercross/build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$(PREFIX) -DSDLSHADERCROSS_VENDORED=ON -DSDLSHADERCROSS_CLI=OFF -DSDLSHADERCROSS_INSTALL=ON -DSPIRV_WERROR=OFF"; \
 		echo "  cmake --build SDL_shadercross/build"; \
 		echo "  sudo cmake --install SDL_shadercross/build --prefix $(PREFIX)"; exit 1; }
 
@@ -135,7 +135,7 @@ deps-shadercross: deps-sdl
 		echo "SDL_shadercross not found system-wide; building it into $(PREFIX)"; \
 		rm -rf $(DEPS)/SDL_shadercross; mkdir -p $(DEPS); \
 		git clone --depth 1 --recurse-submodules https://github.com/libsdl-org/SDL_shadercross.git $(DEPS)/SDL_shadercross; \
-		cmake -S $(DEPS)/SDL_shadercross -B $(DEPS)/SDL_shadercross/build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(PREFIX) -DCMAKE_PREFIX_PATH=$(PREFIX) -DSDLSHADERCROSS_VENDORED=ON -DSDLSHADERCROSS_SHARED=ON -DSDLSHADERCROSS_STATIC=OFF -DSDLSHADERCROSS_CLI=OFF -DSDLSHADERCROSS_INSTALL=ON; \
+		cmake -S $(DEPS)/SDL_shadercross -B $(DEPS)/SDL_shadercross/build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(PREFIX) -DCMAKE_PREFIX_PATH=$(PREFIX) -DSDLSHADERCROSS_VENDORED=ON -DSDLSHADERCROSS_SHARED=ON -DSDLSHADERCROSS_STATIC=OFF -DSDLSHADERCROSS_CLI=OFF -DSDLSHADERCROSS_INSTALL=ON -DSPIRV_WERROR=OFF; \
 		cmake --build $(DEPS)/SDL_shadercross/build; \
 		if { [ -d "$(PREFIX)" ] && [ -w "$(PREFIX)" ]; } || { [ ! -d "$(PREFIX)" ] && [ -w "$$(dirname "$(PREFIX)")" ]; }; then cmake --install $(DEPS)/SDL_shadercross/build --prefix $(PREFIX); \
 		elif command -v sudo >/dev/null 2>&1; then sudo cmake --install $(DEPS)/SDL_shadercross/build --prefix $(PREFIX); \
